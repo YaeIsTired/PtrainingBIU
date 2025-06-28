@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body class="container py-4">
+    <h1 class="mb-4">Trade Recommendation</h1>
+    <p><strong>Action:</strong> {{ result.recommendation }}</p>
+    <p><strong>Entry:</strong> {{ result.entry }}</p>
+    <p><strong>Stop Loss:</strong> {{ result.stop_loss }}</p>
+    <p><strong>Take Profits:</strong></p>
+    <ul>
+        {% for tp in result.take_profit %}
+        <li>{{ tp }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Reasoning</h2>
+    <ul>
+        {% for reason in result.reasoning %}
+        <li>{{ reason }}</li>
+        {% endfor %}
+    </ul>
+    <form action="/feedback" method="post">
+        <input type="hidden" name="recommendation" value="{{ result.recommendation }}">
+        <label>Was this recommendation correct?</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="correct" value="yes" id="fb1">
+            <label class="form-check-label" for="fb1">Yes</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="correct" value="no" id="fb2">
+            <label class="form-check-label" for="fb2">No</label>
+        </div>
+        <button class="btn btn-secondary mt-2" type="submit">Submit Feedback</button>
+    </form>
+</body>
+</html>
